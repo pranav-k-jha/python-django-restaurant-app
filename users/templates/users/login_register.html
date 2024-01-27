@@ -1,0 +1,116 @@
+{% extends 'users/main.html' %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block body %}
+
+<div class="main-wrap">
+    <div class="cover_1 cover_sm">
+        <div style="background-image: url({% static 'site_static/img/pexel2.jpg' %});"
+            data-stellar-background-ratio="0.5">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7" data-aos="fade-up">
+                        <h2 class="heading"></h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .cover_1 -->
+
+
+    {% if page == 'register'%}
+    <h1>Register User</h1>
+
+
+
+
+    <div class="auth">
+        <div class="card">
+            <div class="auth__header text-center">
+                <a href="/">
+
+                </a>
+                <h3>Register an Account</h3>
+            </div>
+
+            <form method="POST" action="{%url 'register'%}" class="form auth__form text-center">
+                {%csrf_token%}
+
+                {%for field in form %}
+
+                <!-- Input:Text -->
+                <div class="form__field">
+                    <label for="formInput#text">{{field.label}}</label>
+                    {{field}}
+
+
+
+                    {%for error in field.errors%}
+                    <p style="color: red;">{{error}}</p>
+                    {%endfor%}
+                </div>
+                {%endfor%}
+
+                <div class="auth__actions">
+                    <input class="btn btn--sub btn--lg" type="submit" value="Sign  Up" />
+                </div>
+            </form>
+            <div class="auth__alternative">
+                <p>Already have an Account?</p>
+                <a href="{% url 'login' %}">Log In</a>
+            </div>
+        </div>
+    </div>
+
+    {%else%}
+
+
+
+
+    <div class="auth">
+
+        <div class="card">
+
+            <div class="auth__header text-center">
+                <a href="/">
+
+                </a>
+                <h3>Account Login</h3>
+                <p>Hello, Welcome Back!</p>
+            </div>
+
+            <form action="{%url 'login' %}" method="POST" class="form auth__form">
+                {% csrf_token %}
+
+                <!-- Input:Username -->
+                <div class="form__field">
+                    <label for="formInput#text">Username: </label>
+                    <input class="input input--text" id="formInput#text" type="text" name="username"
+                        placeholder="Enter your username..." />
+                </div>
+
+                <!-- Input:Password -->
+                <div class="form__field">
+                    <label for="formInput#password">Password: </label>
+                    <input class="input input--password" id="formInput#passowrd" type="password" name="password"
+                        placeholder="••••••••" />
+                </div>
+                <div class="auth__actions">
+                    <input class="btn btn--sub btn--lg" type="submit" value="Log In" />
+                    <a href="{% url 'reset_password' %}">Forget Password?</a>
+                </div>
+            </form>
+
+            <div class="auth__alternative">
+                <p>Don’t have an Account?</p>
+                <a href="{%url 'register'%}">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    {% endif%}
+</div> <!-- .main-wrap -->
+
+
+{% endblock body %}

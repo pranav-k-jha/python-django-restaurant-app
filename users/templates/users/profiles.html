@@ -1,0 +1,68 @@
+{% extends 'customer/base.html' %}
+
+{% load static %}
+{% load bootstrap4 %}
+
+{% block body %}
+
+
+
+
+<div class="main-wrap">
+    <div class="cover_1 cover_sm">
+        <div class="img_bg" style="background-image: url({% static 'site_static/img/img242.jpg' %});"
+            data-stellar-background-ratio="0.5">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-md-7" data-aos="fade-up">
+                        <h2 class="heading">Contact Us</h2>
+                        <p class="lead">Should you need any further information, please do not hesitate to contact us!
+                            Leave us a
+                            message and we will respond to your inquiry as soon as possible!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- .cover_1 -->
+    <section class="devlist">
+        <div class="container">
+            <div class="grid grid--three">
+
+                {%for profile in profiles%}
+                <div class="column card">
+                    <div class="dev">
+                        <a href="{%url 'user-profile' profile.id%}" class="card__body">
+                            <div class="dev__profile">
+                                <img class="avatar avatar--md" src="{{profile.profile_image.url}}" alt="image" />
+                                <div class="dev__meta">
+                                    <h3>{{profile.name}}</h3>
+                                    <h5>{{profile.short_intro}}</h5>
+                                </div>
+                            </div>
+                            <p class="dev__info">
+                                {{profile.bio|slice:"150"}}
+                            </p>
+                            <div class="dev__skills">
+                                {%for skill in profile.skill_set.all%}
+                                <span class="tag tag--pill tag--main">
+                                    <small>{{skill}}</small>
+                                </span>
+                                {%endfor%}
+
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                {%endfor%}
+            </div>
+        </div>
+    </section>
+
+
+
+
+</div> <!-- .main-wrap -->
+
+
+{% endblock body %}
